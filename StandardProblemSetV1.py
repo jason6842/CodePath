@@ -100,3 +100,56 @@ print_todo_list(task)
 
 task = []
 print_todo_list(task)
+
+# Problem 9
+def can_pair(item_quantities):
+    for item in item_quantities:
+        if item % 2 != 0:
+            return False
+    return True
+
+item_quantities = [2, 4, 6, 8]
+print(can_pair(item_quantities))
+
+item_quantities = [1, 2, 3, 4]
+print(can_pair(item_quantities))
+
+item_quantities = []
+print(can_pair(item_quantities))
+
+# Problem 10
+def split_haycorns(quantity):
+    res = []
+    for i in range(1, quantity + 1):
+        if quantity % i == 0:
+            res.append(i)
+    return res
+
+quantity = 6
+print(split_haycorns(quantity))
+
+quantity = 1
+print(split_haycorns(quantity)) 
+
+# Problem 11
+def tiggerfy(s):
+    return "".join(c for c in s if c.lower() not in "tigger")
+
+s = "suspicerous"
+print(tiggerfy(s))
+
+s = "Trigger"
+print(tiggerfy(s))
+
+s = "Hunny"
+print(tiggerfy(s))
+
+#Problem 12
+def locate_thistles(items):
+    return [i for i in range(len(items)) if items[i] == "thistle"]
+
+items = ["thistle", "stick", "carrot", "thistle", "eeyore's tail"]
+print(locate_thistles(items))
+
+items = ["book", "bouncy ball", "leaf", "red balloon"]
+print(locate_thistles(items))
