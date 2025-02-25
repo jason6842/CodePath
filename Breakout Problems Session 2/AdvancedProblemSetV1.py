@@ -71,3 +71,125 @@ code2 = "haha"
 
 print(is_balanced(code1)) 
 print(is_balanced(code2)) 
+
+# Problem 5
+def find_treasure_indices(gold_amounts, target):
+    treasure_dct = {}
+    for i, gold in enumerate(gold_amounts):
+        difference = target - gold
+        if difference in treasure_dct:
+            return [treasure_dct[difference], i]
+        else:
+            treasure_dct[gold] = i
+    
+gold_amounts1 = [2, 7, 11, 15]
+target1 = 9
+
+gold_amounts2 = [3, 2, 4]
+target2 = 6
+
+gold_amounts3 = [3, 3]
+target3 = 6
+
+print(find_treasure_indices(gold_amounts1, target1))  
+print(find_treasure_indices(gold_amounts2, target2))  
+print(find_treasure_indices(gold_amounts3, target3))  
+
+# Problem 6
+# def organize_pirate_crew(group_sizes):
+#     pirate_dct = {}
+#     res = []
+#     for i, pirate in enumerate(group_sizes):
+#         if pirate not in pirate_dct:
+#             pirate_dct[pirate] = [i]
+#         else:
+#             if len(pirate_dct[pirate]) < pirate:
+#                 pirate_dct[pirate].append(i)
+#             else:
+#                 res.append(pirate_dct[pirate])
+#                 pirate_dct[pirate] = [i]
+
+#     res += list(pirate_dct.values())
+#     return res
+
+# only add COMPLETED groups to the result
+def organize_pirate_crew(group_sizes):
+    pirate_dct = {}
+    res = []
+    for i, pirate in enumerate(group_sizes):
+        if pirate not in pirate_dct:
+            pirate_dct[pirate] = []
+            
+        pirate_dct[pirate].append(i)
+
+        if len(pirate_dct[pirate]) == pirate:
+            res.append(pirate_dct[pirate])
+            pirate_dct[pirate] = []
+
+    return res
+        
+group_sizes1 = [3, 3, 3, 3, 3, 1, 3]
+group_sizes2 = [2, 1, 3, 3, 3, 2]
+
+print(organize_pirate_crew(group_sizes1))
+print(organize_pirate_crew(group_sizes2)) 
+
+# Problem 7
+# def min_steps_to_match_maps(map1, map2):
+#     dct1 = {}
+#     for c in map1:
+#         if c not in dct1:
+#             dct1[c] = 1
+#         else:
+#             dct1[c] += 1
+
+#     for c in map2:
+#         if c in dct1:
+#             dct1[c] -= 1
+#             if dct1[c] == 0:
+#                 del dct1[c]
+
+#     return sum(dct1.values())
+
+
+# An alternative solution is get a frequency map on both map1 and map2, then calculate the fewer occurrence in map 2
+def min_steps_to_match_maps(map1, map2):
+    dct1 = {}
+    dct2 = {}
+    for c in map1:
+        if c not in dct1:
+            dct1[c] = 1
+        else:
+            dct1[c] += 1
+
+    for c in map2:
+        if c not in dct2:
+            dct2[c] = 1
+        else:
+            dct2[c] += 1
+
+    res = 0
+    for c in dct1:
+        if c in dct2:
+            if dct1[c] > dct2[c]:
+                res += dct1[c] - dct2[c]
+        else:
+            res += dct1[c]
+    return res
+
+
+
+map1_1 = "bab"
+map2_1 = "aba"
+map1_2 = "treasure"
+map2_2 = "huntgold"
+map1_3 = "anagram"
+map2_3 = "mangaar"
+
+print(min_steps_to_match_maps(map1_1, map2_1))
+print(min_steps_to_match_maps(map1_2, map2_2))
+print(min_steps_to_match_maps(map1_3, map2_3))
+
+# Problem 8
+def counting_pirates_action_minutes(logs, k):
+    
