@@ -62,3 +62,28 @@ def max_corridor_area(segments):
 
 print(max_corridor_area([1, 8, 6, 2, 5, 4, 8, 3, 7])) 
 print(max_corridor_area([1, 1])) 
+
+# Problem 4
+def min_swaps(s):
+    """
+    U: Given an n string, there will be n/2 "[" and n/2 "]". If there is an empty string, return []. 
+        Find the minimum number of swaps to balance the layout
+    M: Stack or queue 
+    P: If we hit a "]", we check the top of the stack for a "[" if it is pop without incrementing. 
+        If it is "]", and "]", increment the counter and pop
+    """
+    stack = []
+    count = 0
+    for wall in s:
+        if not stack:
+            stack.append(wall)
+        elif wall == "]" and stack[-1] == "[":
+            stack.pop()
+        elif wall == "]" and stack[-1] == "]":
+            stack.pop()
+            count += 1
+    return count
+
+print(min_swaps("][][")) 
+print(min_swaps("]]][[[")) 
+print(min_swaps("[]"))  
