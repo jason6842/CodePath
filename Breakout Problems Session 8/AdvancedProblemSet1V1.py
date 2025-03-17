@@ -240,3 +240,69 @@ print("----------Problem 6----------")
 print(process_supplies(supplies))
 print(process_supplies(supplies_2))
 print(process_supplies(supplies_3))
+
+# Problem 7
+# def calculate_fabric_waste(items, fabric_rolls):
+#     # Time Complexity: O(n), where n is the number of items
+#     # Space Complexity: O(1)
+#     wasted_fabric = 0
+#     for i in range(len(items)):
+#         wasted_fabric += fabric_rolls[i] - items[i][1]
+#     return wasted_fabric
+
+# Assuming that the lengths of the fabric rolls and items are not corresponding
+def calculate_fabric_waste(items, fabric_rolls):
+    # Time Compleexity:
+    # Space Complexity:
+    items_sorted = sorted(items, key=lambda x: x[1], reverse=True)
+    fabric_rolls_sorted = sorted(fabric_rolls, reverse=True)
+    wasted_fabric = 0
+    roll_index = 0
+    
+    for i in range(len(items_sorted)):
+        if roll_index < len(fabric_rolls_sorted):
+            wasted_fabric += fabric_rolls_sorted[roll_index] - items_sorted[i][1]
+            roll_index += 1
+        else:
+            # no more fabric rolls
+            break
+    return wasted_fabric
+    
+        
+items = [("T-Shirt", 2), ("Pants", 3), ("Jacket", 5)]
+fabric_rolls = [5, 5, 5]
+
+items_2 = [("Dress", 4), ("Skirt", 3), ("Blouse", 2)]
+fabric_rolls2 = [4, 4, 4]
+
+items_3 = [("Jacket", 6), ("Shirt", 2), ("Shorts", 3)]
+fabric_rolls3 = [7, 5, 5]
+
+print("----------Problem 7----------")
+print(calculate_fabric_waste(items, fabric_rolls))
+print(calculate_fabric_waste(items_2, fabric_rolls2))
+print(calculate_fabric_waste(items_3, fabric_rolls3))
+
+# Problem 8
+def organize_fabric_rolls(fabric_rolls):
+    # Time Complexity: O(n log n), due to Python's built-in sort function
+    # Space Complexity: O(n), where worst case scenario can have all individual fabric rolls
+    fabric_rolls.sort()
+    organized_rolls = []
+    for i in range(0, len(fabric_rolls), 2):
+        if i + 1 < len(fabric_rolls):
+            pair = (fabric_rolls[i], fabric_rolls[i + 1])
+            organized_rolls.append(pair)
+        else:
+            organized_rolls.append(fabric_rolls[i])
+    return organized_rolls
+        
+
+fabric_rolls_1 = [15, 10, 25, 30, 22]
+fabric_rolls_2 = [5, 8, 10, 7, 12, 14]
+fabric_rolls_3 = [40, 10, 25, 15, 30]
+
+print("----------Problem 8----------")
+print(organize_fabric_rolls(fabric_rolls_1))
+print(organize_fabric_rolls(fabric_rolls_2))
+print(organize_fabric_rolls(fabric_rolls_3))
