@@ -1,308 +1,76 @@
 # Problem 1
-def filter_sustainable_brands(brands, criterion):
-    # Time Complexity: O(n), where n is the number of brands
-    # Space Complexity: O(m), where m is the number of brands that meet the criterion
-    brandList = []
-    for brand in brands:
-        if criterion in brand["criteria"]:
-            brandList.append(brand["name"])
-    return brandList
-
-brands = [
-    {"name": "EcoWear", "criteria": ["eco-friendly", "ethical labor"]},
-    {"name": "FastFashion", "criteria": ["cheap materials", "fast production"]},
-    {"name": "GreenThreads", "criteria": ["eco-friendly", "carbon-neutral"]},
-    {"name": "TrendyStyle", "criteria": ["trendy designs"]}
-]
-
-brands_2 = [
-    {"name": "Earthly", "criteria": ["ethical labor", "fair wages"]},
-    {"name": "FastStyle", "criteria": ["mass production"]},
-    {"name": "NatureWear", "criteria": ["eco-friendly"]},
-    {"name": "GreenFit", "criteria": ["recycled materials", "eco-friendly"]}
-]
-
-brands_3 = [
-    {"name": "OrganicThreads", "criteria": ["organic cotton", "fair trade"]},
-    {"name": "GreenLife", "criteria": ["recycled materials", "carbon-neutral"]},
-    {"name": "FastCloth", "criteria": ["cheap production"]}
-]
+def count_unique_characters(script):
+    # Time Complexity: O(1), operations of dictionary
+    # Space Complexity: O(1), operaitons of dictionary
+    return len(script)
+        
 
 print("----------Problem 1----------")
-print(filter_sustainable_brands(brands, "eco-friendly"))
-print(filter_sustainable_brands(brands_2, "ethical labor"))
-print(filter_sustainable_brands(brands_3, "carbon-neutral"))
+script = {
+    "Alice": ["Hello there!", "How are you?"],
+    "Bob": ["Hi Alice!", "I'm good, thanks!"],
+    "Charlie": ["What's up?"]
+}
+print(count_unique_characters(script)) 
+
+script_with_redundant_keys = {
+    "Alice": ["Hello there!"],
+    "Alice": ["How are you?"],
+    "Bob": ["Hi Alice!"]
+}
+print(count_unique_characters(script_with_redundant_keys))
 
 # Problem 2
-def count_material_usage(brands):
-    # Time Complexity: O(n * m), where n is the number of brands and m is the number of materials in each brand
-    # Space Complexity: O(m), where m is the number of unique materials
-    material_freq_dct = {}
-    for brand in brands:
-        for material in brand["materials"]:
-            if material not in material_freq_dct:
-                material_freq_dct[material] = 1
+def find_most_frequent_keywords(scenes):
+    # Time Complexity: O(n * m), n is the number of scenes, m is the number of keywords in each scene
+    # Space Complexity: O(m), m is the number of unique keywords
+    # Worst case: all keywords are unique
+    keyword_dct = {}
+    for value in scenes.values():
+        for keyword in value:
+            if keyword not in keyword_dct:
+                keyword_dct[keyword] = 1
             else:
-                material_freq_dct[material] += 1
-    return material_freq_dct
-
-brands = [
-    {"name": "EcoWear", "materials": ["organic cotton", "recycled polyester"]},
-    {"name": "GreenThreads", "materials": ["organic cotton", "bamboo"]},
-    {"name": "SustainableStyle", "materials": ["bamboo", "recycled polyester"]}
-]
-
-brands_2 = [
-    {"name": "NatureWear", "materials": ["hemp", "linen"]},
-    {"name": "Earthly", "materials": ["organic cotton", "hemp"]},
-    {"name": "GreenFit", "materials": ["linen", "recycled wool"]}
-]
-
-brands_3 = [
-    {"name": "OrganicThreads", "materials": ["organic cotton"]},
-    {"name": "EcoFashion", "materials": ["recycled polyester", "hemp"]},
-    {"name": "GreenLife", "materials": ["recycled polyester", "bamboo"]}
-]
+                keyword_dct[keyword] += 1
+    max_freq = max(keyword_dct.values())
+    
+    return [key for key, value in keyword_dct.items() if value == max_freq]
 
 print("----------Problem 2----------")
-print(count_material_usage(brands))
-print(count_material_usage(brands_2))
-print(count_material_usage(brands_3))
+scenes = {
+    "Scene 1": ["action", "hero", "battle"],
+    "Scene 2": ["hero", "action", "quest"],
+    "Scene 3": ["battle", "strategy", "hero"],
+    "Scene 4": ["action", "strategy"]
+}
+print(find_most_frequent_keywords(scenes))
+
+scenes = {
+    "Scene A": ["love", "drama"],
+    "Scene B": ["drama", "love"],
+    "Scene C": ["comedy", "love"],
+    "Scene D": ["comedy", "drama"]
+}
+print(find_most_frequent_keywords(scenes)) 
 
 # Problem 3
-def find_trending_materials(brands):
-    # Time Complexity: O(n * m), where n is the number of brands and m is the number of materials in each brand
-    # Space Complexity: O(n * m), where there is m materials for n brands
-    unique_trending_materials = set()
-    trending_materials_lst = []
-    for brand in brands:
-        for material in brand["materials"]:
-            if material in unique_trending_materials:
-                trending_materials_lst.append(material)
-            else:
-                unique_trending_materials.add(material)
-    return trending_materials_lst
-
-brands = [
-    {"name": "EcoWear", "materials": ["organic cotton", "recycled polyester"]},
-    {"name": "GreenThreads", "materials": ["organic cotton", "bamboo"]},
-    {"name": "SustainableStyle", "materials": ["bamboo", "recycled polyester"]}
-]
-
-brands_2 = [
-    {"name": "NatureWear", "materials": ["hemp", "linen"]},
-    {"name": "Earthly", "materials": ["organic cotton", "hemp"]},
-    {"name": "GreenFit", "materials": ["linen", "recycled wool"]}
-]
-
-brands_3 = [
-    {"name": "OrganicThreads", "materials": ["organic cotton"]},
-    {"name": "EcoFashion", "materials": ["recycled polyester", "hemp"]},
-    {"name": "GreenLife", "materials": ["recycled polyester", "bamboo"]}
-]
-
-print("----------Problem 3----------")
-print(find_trending_materials(brands))
-print(find_trending_materials(brands_2))
-print(find_trending_materials(brands_3))
-
-# Problem 4
-def find_best_fabric_pair(fabrics, budget):
-    # Time Complexity: O(n log n), because sorting the fabrics takes O(n log n) and the two-pointer approach takes O(n)
-    # Space Complexity: O(n * m), because there can be m materials for n fabrics
-    sorted_fabrics = sorted(fabrics, key=lambda x: x[1])
-    left, right = 0, len(sorted_fabrics) - 1
-    best_pair = (None, None)
-    max_cost = 0
-    
-    while left < right:
-        current_sum = sorted_fabrics[left][1] + sorted_fabrics[right][1]
-        if current_sum > budget:
-            right -= 1
-        elif current_sum <= budget:
-            if current_sum > max_cost:
-                max_cost = current_sum
-                best_pair = (sorted_fabrics[left][0], sorted_fabrics[right][0])
-            left += 1
-    return best_pair
-    
-fabrics = [("Organic Cotton", 30), ("Recycled Polyester", 20), ("Bamboo", 25), ("Hemp", 15)]
-fabrics_2 = [("Linen", 50), ("Recycled Wool", 40), ("Tencel", 30), ("Organic Cotton", 60)]
-fabrics_3 = [("Linen", 40), ("Hemp", 35), ("Recycled Polyester", 25), ("Bamboo", 20)]
-
-print("----------Problem 4----------")
-print(find_best_fabric_pair(fabrics, 45))
-print(find_best_fabric_pair(fabrics_2, 70))
-print(find_best_fabric_pair(fabrics_3, 60))
-
-# Problem 5
-def organize_fabrics(fabrics):
-    # Time Complexity: O(n * n) where n is the number of fabrics * the number of fabrics on the stack that needs to be sorted
-    # Space Complexity: O(n)
-    stack = []
-    for fabric in fabrics:
-        if stack and stack[-1][1] < fabric[1]:
-            temp_storage = []
-            while stack and stack[-1][1] < fabric[1]:
-                temp_storage.append(stack.pop())
-            stack.append(fabric)
-            # print("TEMP STORAGE: ", temp_storage)
-            for temp in temp_storage[::-1]:
-                stack.append(temp)
-        else:
-            stack.append(fabric)
-    return [fabric for fabric, eco in stack]
-
-# Same runtime complexity except slightly cleaner code
-def organize_fabrics(fabrics):
-    stack = []
-    for fabric in fabrics:
-        # do not need if statement since while loop already does so
-        temp_stack = []
-        while stack and stack[-1][1] < fabric[1]:
-            temp_stack.append(stack.pop())
-
-        # no else statement since both while loops has its own condition
-        stack.append(fabric)
-        
-        # instead of reverse iteration, just use stack again
-        while temp_stack:
-            stack.append(temp_stack.pop())
-
-    # doesn't really matter, fabric[0] or unpacking method
-    return [fabric[0] for fabric in stack]
-
-fabrics = [("Organic Cotton", 8), ("Recycled Polyester", 6), ("Bamboo", 7), ("Hemp", 9)]
-fabrics_2 = [("Linen", 5), ("Recycled Wool", 9), ("Tencel", 7), ("Organic Cotton", 6)]
-fabrics_3 = [("Linen", 4), ("Hemp", 8), ("Recycled Polyester", 5), ("Bamboo", 7)]
-
-print("----------Problem 5----------")
-print(organize_fabrics(fabrics))
-print(organize_fabrics(fabrics_2))
-print(organize_fabrics(fabrics_3))
-
-# Problem 6
 from collections import deque
-# def process_supplies(supplies):
-#     # Time Complexity:
-#     # Space Complexity:
-#     queue = deque()
-#     for supply in supplies:
-#         temp_queue = deque()
-#         while queue and queue[0][1] < supply[1]:
-#             temp_queue.append(queue.popleft())
-
-#         queue.append(supply)
-#         # print(temp_queue)
-#         while temp_queue:
-#             queue.append(temp_queue.popleft())
-
-#     return [supply[0] for supply in queue]
-
-def process_supplies(supplies):
-    # Time Complexity: O(n * n)
-    # Space Complexity: O(n)
-    queue = deque()
-    for supply in supplies:
-        # a flag for if the value is in its correct place
-        inserted = False
-        temp_queue = deque()
-
-        # iterates through the current queue
-        while queue:
-            # If the current supply has a higher priority than the first item in the queue,
-            # insert it before lower-priority elements.
-            if not inserted and queue[0][1] < supply[1]:
-                # Add the new supply to the temporary queue before the lower-priority element
-                temp_queue.append(supply)
-                inserted = True # Mark that the supply has been placed
-
-            # Move the next element from the original queue to the temp queue
-            # This ensures that all previously existing elements remain in order
-            # Larger elements would still be in the front, but ensures that the largest supply
-            # will be in the front (with new supply included)
-            temp_queue.append(queue.popleft())
-        
-        # if the current supply was never inserted, than it is the smallest value
-        if not inserted:
-            temp_queue.append(supply)
-        # queue should be in its current sorted order with the new supply
-        queue = temp_queue
-
-    return [supply[0] for supply in queue]
-
-
-supplies = [("Organic Cotton", 3), ("Recycled Polyester", 2), ("Bamboo", 4), ("Hemp", 1)]
-supplies_2 = [("Linen", 2), ("Recycled Wool", 5), ("Tencel", 3), ("Organic Cotton", 4)]
-supplies_3 = [("Linen", 3), ("Hemp", 2), ("Recycled Polyester", 5), ("Bamboo", 1)]
-
-print("----------Problem 6----------")
-print(process_supplies(supplies))
-print(process_supplies(supplies_2))
-print(process_supplies(supplies_3))
-
-# Problem 7
-# def calculate_fabric_waste(items, fabric_rolls):
-#     # Time Complexity: O(n), where n is the number of items
-#     # Space Complexity: O(1)
-#     wasted_fabric = 0
-#     for i in range(len(items)):
-#         wasted_fabric += fabric_rolls[i] - items[i][1]
-#     return wasted_fabric
-
-# Assuming that the lengths of the fabric rolls and items are not corresponding
-def calculate_fabric_waste(items, fabric_rolls):
-    # Time Compleexity:
-    # Space Complexity:
-    items_sorted = sorted(items, key=lambda x: x[1], reverse=True)
-    fabric_rolls_sorted = sorted(fabric_rolls, reverse=True)
-    wasted_fabric = 0
-    roll_index = 0
+def track_scene_transitions(scenes):
+    # Time Complexity: O(n), n is the number of scenes
+    # Space Complexity: O(n), n number of scenes from the scenes list
+    # Edge cases
+    # 1. No scenes
+    # 2. Only one scene, so no transition
+    if not scenes or len(scenes) < 2:
+        return
     
-    for i in range(len(items_sorted)):
-        if roll_index < len(fabric_rolls_sorted):
-            wasted_fabric += fabric_rolls_sorted[roll_index] - items_sorted[i][1]
-            roll_index += 1
-        else:
-            # no more fabric rolls
-            break
-    return wasted_fabric
+    queue = deque(scenes)
+    while len(queue) > 1:
+        print(f"Transition from {queue.popleft()} to {queue[0]}")
     
-        
-items = [("T-Shirt", 2), ("Pants", 3), ("Jacket", 5)]
-fabric_rolls = [5, 5, 5]
+print("----------Problem 3----------")
+track_scenes = ["Opening", "Rising Action", "Climax", "Falling Action", "Resolution\n"]
+track_scene_transitions(track_scenes)
 
-items_2 = [("Dress", 4), ("Skirt", 3), ("Blouse", 2)]
-fabric_rolls2 = [4, 4, 4]
-
-items_3 = [("Jacket", 6), ("Shirt", 2), ("Shorts", 3)]
-fabric_rolls3 = [7, 5, 5]
-
-print("----------Problem 7----------")
-print(calculate_fabric_waste(items, fabric_rolls))
-print(calculate_fabric_waste(items_2, fabric_rolls2))
-print(calculate_fabric_waste(items_3, fabric_rolls3))
-
-# Problem 8
-def organize_fabric_rolls(fabric_rolls):
-    # Time Complexity: O(n log n), due to Python's built-in sort function
-    # Space Complexity: O(n), where worst case scenario can have all individual fabric rolls
-    fabric_rolls.sort()
-    organized_rolls = []
-    for i in range(0, len(fabric_rolls), 2):
-        if i + 1 < len(fabric_rolls):
-            pair = (fabric_rolls[i], fabric_rolls[i + 1])
-            organized_rolls.append(pair)
-        else:
-            organized_rolls.append(fabric_rolls[i])
-    return organized_rolls
-        
-
-fabric_rolls_1 = [15, 10, 25, 30, 22]
-fabric_rolls_2 = [5, 8, 10, 7, 12, 14]
-fabric_rolls_3 = [40, 10, 25, 15, 30]
-
-print("----------Problem 8----------")
-print(organize_fabric_rolls(fabric_rolls_1))
-print(organize_fabric_rolls(fabric_rolls_2))
-print(organize_fabric_rolls(fabric_rolls_3))
+track_scenes1 = ["Introduction", "Conflict", "Climax", "Denouement"]
+track_scene_transitions(track_scenes1)
