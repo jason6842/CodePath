@@ -58,7 +58,7 @@ def message_received(start_villager, target_villager):
 # print(of_personality_type([isabelle, bob, stitches], "Lazy"))
 # print(of_personality_type([isabelle, bob, stitches], "Cranky"))
 
-# print("problem 4")
+# print("-----Problem 4-----")
 
 # isabelle = Villager("Isabelle", "Dog", "Normal", "what's up?")
 # tom_nook = Villager("Tom Nook", "Raccoon", "Cranky", "yes, yes")
@@ -89,7 +89,7 @@ def print_linked_list(head):
 # isabelle = Node("Isabelle")
 
 # Add code here to link the above nodes
-print("problem 5")
+print("-----Problem 5-----")
 isabelle = Node("Isabelle")
 saharah = Node("Saharah", isabelle)
 harriet = Node("Harriet", saharah)
@@ -108,7 +108,7 @@ def catch_fish(head):
 fish_list = Node("Carp", Node("Dace", Node("Cherry Salmon")))
 empty_list = None
 
-print("problem 6")
+print("-----Problem 6-----")
 print_linked_list(fish_list)
 print_linked_list(catch_fish(fish_list))
 print(catch_fish(empty_list))
@@ -126,7 +126,7 @@ def fish_chances(head, fish_name):
     # round(number, 2)
     return round(fish_count / list_len, 2)
 
-print("problem 7")
+print("-----Problem 7-----")
 fish_list = Node("Carp", Node("Dace", Node("Cherry Salmon")))
 print(fish_chances(fish_list, "Dace"))
 print(fish_chances(fish_list, "Rainbow Trout"))
@@ -139,5 +139,6 @@ def restock(head, new_fish):
     curr.next = Node(new_fish)
     return head
 
+print("-----Problem 8-----")
 fish_list = Node("Carp", Node("Dace", Node("Cherry Salmon")))
 print_linked_list(restock(fish_list, "Rainbow Trout"))
