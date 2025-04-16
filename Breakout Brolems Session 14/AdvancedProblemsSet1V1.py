@@ -80,6 +80,7 @@ print(find_frequency_positions([5,7,7,8,8,10], 8))
 print(find_frequency_positions([5,7,7,8,8,10], 6))
 print(find_frequency_positions([], 0))
 
+# Problem 4
 def next_greatest_letter(letters, target):
     if letters[-1] < target:
         return letters[0]
@@ -108,3 +109,7 @@ letters = ['a', 'a', 'b', 'c', 'c', 'c', 'e', 'h', 'w']
 print(next_greatest_letter(letters, 'a'))
 print(next_greatest_letter(letters, 'd'))
 print(next_greatest_letter(letters, 'y'))
+
+# Problem 5
+def find_closest_planets(planets, target_distance, k):
+    pass

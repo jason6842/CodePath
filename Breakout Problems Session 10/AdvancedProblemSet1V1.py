@@ -97,3 +97,66 @@ head1 = Node(1, Node(2, Node(3, Node(3, Node(3, Node(4, Node(5)))))))
 print_linked_list(head1)
 
 print_linked_list(delete_dupes(head1))
+
+
+# Problem 4
+def has_cycle(head):
+    # Time Complexity: O(n), where fast loops the entire linked list to catch up to slow
+    # Space Complexity: O(1)
+    if head is None:
+        return None
+    slow = head
+    fast = head
+    
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+        # can be None on last iteration so best to check if it points to the same memory instead of value
+        if fast == slow: 
+            return True
+    return False
+
+peach = Node("Peach", Node("Luigi", Node("Mario", Node("Toad"))))
+
+print(has_cycle(peach))
+
+# Problem 5
+def remove_nth_from_end(head, n):
+    if head is None:
+        return None
+    
+    slow = head
+    fast = head
+
+    while fast and n > 0:
+        fast = fast.next
+        n -= 1
+
+    if fast is None:
+        return head.next
+
+    while fast:
+        # slow = slow.next
+        fast = fast.next
+        if fast == None:
+            break
+        else:
+            slow = slow.next
+
+    slow.next = slow.next.next # skip one node
+
+    return head
+
+head1 = Node("apple", Node("cherry", Node("orange", Node("peach", Node("pear")))))
+head2 = Node("Rainbow Trout", Node("Ray"))
+head3 = Node("Rainbow Stag")
+
+
+print_linked_list(remove_nth_from_end(head1, 2))
+print_linked_list(remove_nth_from_end(head2, 1))
+"""
+Rainbow Trout -> Ray
+        s
+                  f
+"""
+print_linked_list(remove_nth_from_end(head3, 1))
